@@ -9,12 +9,16 @@ import com.example.matmall.common.entity.PageVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Api(tags = "商品管理")
 @RestController
+@Validated
 @RequestMapping("product")
 public class ProductController {
     @Autowired
@@ -39,4 +43,10 @@ public class ProductController {
 
     }
 
+    @ApiOperation("删除")
+    @GetMapping("delete")
+    public void delete(@NotEmpty @RequestBody List<Long> idList){
+        productService.delete(idList);
+
+    }
 }
